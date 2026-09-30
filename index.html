@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>EduEnglish - Mobile App</title>
+    <title>EduEnglish</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
@@ -26,7 +26,6 @@
         body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        /* Phone frame simulation on desktop */
         @media (min-width: 768px) {
             .phone-frame {
                 max-width: 412px;
@@ -42,29 +41,18 @@
 <meta name="theme-color" content="#4f46e5">
 <body class="bg-slate-950 h-full flex items-center justify-center overflow-hidden">
 
-    <!-- Mobile App Container (Phone frame on desktop, fullscreen on mobile) -->
+    <!-- Mobile App Container -->
     <div id="app-container" class="w-full h-full md:phone-frame bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 flex flex-col relative overflow-hidden transition-colors duration-300">
 
-        <!-- Status Bar Simulator (Mobile Style) -->
-        <div class="h-8 bg-slate-100 dark:bg-slate-900 px-6 flex items-center justify-between text-xs font-semibold text-slate-500 dark:text-slate-400 flex-shrink-0 select-none z-40">
-            <span id="current-time-status">09:41</span>
-            <div class="w-20 h-3 bg-slate-300 dark:bg-slate-800 rounded-full mx-auto hidden md:block"></div>
-            <div class="flex items-center space-x-1.5">
-                <i data-lucide="signal" class="w-3.5 h-3.5"></i>
-                <i data-lucide="wifi" class="w-3.5 h-3.5"></i>
-                <i data-lucide="battery" class="w-4 h-4"></i>
-            </div>
-        </div>
-
-        <!-- App Header Bar -->
-        <header class="px-5 py-3.5 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 flex items-center justify-between flex-shrink-0 z-30">
+        <!-- App Header Bar (Đã xóa hoàn toàn thanh thời gian/pin giả lập phía trên) -->
+        <header class="px-5 py-3.5 bg-white/85 dark:bg-slate-900/85 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 flex items-center justify-between flex-shrink-0 z-30">
             <div class="flex items-center space-x-3">
                 <div class="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center shadow-md shadow-indigo-500/20">
                     <i data-lucide="graduation-cap" class="w-5 h-5"></i>
                 </div>
                 <div>
                     <h1 id="header-title" class="font-bold text-slate-900 dark:text-white text-base leading-tight">Tổng Quan</h1>
-                    <p class="text-[11px] text-slate-500 dark:text-slate-400">EduEnglish Mobile</p>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400">EduEnglish</p>
                 </div>
             </div>
             <div class="flex items-center space-x-2">
@@ -85,17 +73,15 @@
             
             <!-- TAB 1: DASHBOARD -->
             <section id="tab-dashboard" class="space-y-4 tab-content">
-                <!-- Welcome Card -->
                 <div class="bg-gradient-to-r from-indigo-600 to-violet-600 rounded-3xl p-5 text-white shadow-lg relative overflow-hidden">
                     <div class="absolute -right-6 -bottom-6 w-36 h-36 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
                     <div class="relative z-10">
                         <span class="bg-white/20 text-[10px] font-semibold px-2.5 py-0.5 rounded-full uppercase tracking-wider">Hôm Nay</span>
-                        <h2 class="text-xl font-bold mt-2">Xin chào, Admin! 👋</h2>
+                        <h2 class="text-xl font-bold mt-2">Xin chào, Hải 👋</h2>
                         <p class="text-indigo-100 text-xs mt-1 leading-relaxed">Bạn có các lịch học sắp diễn ra và danh sách lớp đang hoạt động cần kiểm tra.</p>
                     </div>
                 </div>
 
-                <!-- Stats Grid -->
                 <div class="grid grid-cols-2 gap-3">
                     <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-100 dark:border-slate-700/60 shadow-sm flex items-center justify-between">
                         <div>
@@ -117,7 +103,6 @@
                     </div>
                 </div>
 
-                <!-- Today Schedule Header -->
                 <div class="flex items-center justify-between pt-1">
                     <h3 class="font-bold text-slate-800 dark:text-slate-100 text-sm flex items-center">
                         <i data-lucide="calendar" class="w-4 h-4 mr-1.5 text-indigo-600"></i> Lịch Học Hôm Nay
@@ -125,10 +110,7 @@
                     <button onclick="switchTab('schedule')" class="text-xs text-indigo-600 dark:text-indigo-400 font-semibold">Xem tất cả</button>
                 </div>
 
-                <!-- Today Schedules List -->
-                <div id="dashboard-schedule-list" class="space-y-2.5">
-                    <!-- Populated by JS -->
-                </div>
+                <div id="dashboard-schedule-list" class="space-y-2.5"></div>
             </section>
 
             <!-- TAB 2: SCHEDULE -->
@@ -144,7 +126,6 @@
                     </button>
                 </div>
 
-                <!-- Day Filter Chips -->
                 <div class="flex space-x-2 overflow-x-auto hide-scrollbar pb-1">
                     <button onclick="filterScheduleDay('all', this)" class="sched-filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-indigo-600 text-white flex-shrink-0 transition-all">Tất cả</button>
                     <button onclick="filterScheduleDay('Thứ Hai', this)" class="sched-filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex-shrink-0 transition-all">Thứ 2</button>
@@ -155,13 +136,10 @@
                     <button onclick="filterScheduleDay('Thứ Bảy', this)" class="sched-filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex-shrink-0 transition-all">Thứ 7</button>
                 </div>
 
-                <!-- Schedule Cards List -->
-                <div id="schedule-cards-list" class="space-y-3">
-                    <!-- Populated by JS -->
-                </div>
+                <div id="schedule-cards-list" class="space-y-3"></div>
             </section>
 
-            <!-- TAB 3: CLASSES & ATTENDANCE -->
+            <!-- TAB 3: CLASSES -->
             <section id="tab-classes" class="space-y-4 tab-content hidden">
                 <div class="flex items-center justify-between">
                     <div>
@@ -174,26 +152,24 @@
                     </button>
                 </div>
 
-                <!-- Class Selection Horizontal Scroll -->
-                <div id="class-chips-container" class="flex space-x-2 overflow-x-auto hide-scrollbar pb-1">
-                    <!-- Populated by JS -->
-                </div>
+                <div id="class-chips-container" class="flex space-x-2 overflow-x-auto hide-scrollbar pb-1"></div>
 
-                <!-- Selected Class Attendance Box -->
                 <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 border border-slate-100 dark:border-slate-700/60 shadow-sm space-y-3">
                     <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-700 pb-3">
                         <div>
                             <h3 id="current-class-title" class="font-bold text-slate-800 dark:text-slate-100 text-sm">Chọn lớp học</h3>
                             <p id="current-class-desc" class="text-[11px] text-slate-400">Mô tả khóa học</p>
                         </div>
-                        <button onclick="addStudentPrompt()" class="bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 text-xs font-semibold px-3 py-1.5 rounded-xl hover:bg-indigo-100 transition-all flex items-center">
-                            <i data-lucide="user-plus" class="w-3.5 h-3.5 mr-1"></i> Thêm HV
-                        </button>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="editCurrentClass()" class="p-1.5 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-xl hover:bg-slate-200 transition-all" title="Sửa lớp">
+                                <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+                            </button>
+                            <button onclick="addStudentPrompt()" class="bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 text-xs font-semibold px-3 py-1.5 rounded-xl hover:bg-indigo-100 transition-all flex items-center">
+                                <i data-lucide="user-plus" class="w-3.5 h-3.5 mr-1"></i> Thêm HV
+                            </button>
+                        </div>
                     </div>
-
-                    <div id="student-list-container" class="space-y-2.5">
-                        <!-- Populated by JS -->
-                    </div>
+                    <div id="student-list-container" class="space-y-2.5"></div>
                 </div>
             </section>
 
@@ -209,13 +185,10 @@
                         <span>Thêm GV</span>
                     </button>
                 </div>
-
-                <div id="teachers-list" class="space-y-3">
-                    <!-- Populated by JS -->
-                </div>
+                <div id="teachers-list" class="space-y-3"></div>
             </section>
 
-            <!-- TAB 5: PROFILE & SETTINGS -->
+            <!-- TAB 5: PROFILE -->
             <section id="tab-profile" class="space-y-4 tab-content hidden">
                 <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-100 dark:border-slate-700/60 shadow-sm text-center space-y-3">
                     <div class="w-16 h-16 bg-indigo-600 text-white font-bold rounded-full mx-auto flex items-center justify-center text-xl shadow-lg shadow-indigo-500/30">
@@ -223,7 +196,7 @@
                     </div>
                     <div>
                         <h3 class="font-bold text-slate-800 dark:text-slate-100 text-base">Quản Trị Viên</h3>
-                        <p class="text-xs text-slate-400">DylanJames.vn@gamil.</p>
+                        <p class="text-xs text-slate-400">DylanJames.vn@gmail.com</p>
                     </div>
                     <span class="inline-block px-3 py-1 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 text-xs font-semibold rounded-full">Phiên bản Pro v2.5 Mobile</span>
                 </div>
@@ -233,17 +206,13 @@
                         <span class="flex items-center"><i data-lucide="rotate-ccw" class="w-4 h-4 mr-2.5 text-indigo-500"></i> Khôi phục dữ liệu mẫu</span>
                         <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
                     </button>
-                    <button onclick="showToast('EduEnglish Mobile App sẵn sàng hoạt động!')" class="w-full text-left px-4 py-3 bg-slate-50 dark:bg-slate-700/50 hover:bg-slate-100 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 flex items-center justify-between">
-                        <span class="flex items-center"><i data-lucide="info" class="w-4 h-4 mr-2.5 text-indigo-500"></i> Về ứng dụng & Hướng dẫn</span>
-                        <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
-                    </button>
                 </div>
             </section>
 
         </main>
 
-        <!-- Bottom Navigation Bar (Mobile Style) -->
-        <nav class="absolute bottom-0 left-0 right-0 h-16 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-t border-slate-100 dark:border-slate-800 px-3 flex items-center justify-around z-40">
+        <!-- Bottom Navigation Bar -->
+        <nav class="absolute bottom-0 left-0 right-0 h-16 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-100 dark:border-slate-800 px-3 flex items-center justify-around z-40">
             <button onclick="switchTab('dashboard')" class="nav-tab flex flex-col items-center justify-center space-y-1 text-indigo-600 dark:text-indigo-400 transition-all" data-tab="dashboard">
                 <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
                 <span class="text-[10px] font-medium">Tổng Quan</span>
@@ -267,8 +236,6 @@
         </nav>
 
         <!-- MODALS -->
-
-        <!-- 1. Schedule Modal -->
         <div id="scheduleModal" class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm hidden items-end md:items-center justify-center z-50 p-0 md:p-4">
             <div class="bg-white dark:bg-slate-800 rounded-t-3xl md:rounded-2xl w-full max-w-md shadow-2xl p-5 space-y-4 max-h-[85vh] overflow-y-auto">
                 <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-700 pb-3">
@@ -279,49 +246,42 @@
                     <input type="hidden" id="sched-id">
                     <div>
                         <label class="block text-[11px] font-semibold text-slate-500 uppercase mb-1">Chọn Lớp Học</label>
-                        <select id="form-sched-class" required class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-800 dark:text-slate-100 text-xs rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500"></select>
+                        <select id="form-sched-class" required class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-800 dark:text-slate-100 text-xs rounded-xl p-2.5 focus:outline-none"></select>
                     </div>
                     <div class="grid grid-cols-2 gap-3">
                         <div>
                             <label class="block text-[11px] font-semibold text-slate-500 uppercase mb-1">Thứ</label>
-                            <select id="form-sched-day" required class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-800 dark:text-slate-100 text-xs rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                                <option value="Thứ Hai">Thứ Hai</option>
-                                <option value="Thứ Ba">Thứ Ba</option>
-                                <option value="Thứ Tư">Thứ Tư</option>
-                                <option value="Thứ Năm">Thứ Năm</option>
-                                <option value="Thứ Sáu">Thứ Sáu</option>
-                                <option value="Thứ Bảy">Thứ Bảy</option>
-                                <option value="Chủ Nhật">Chủ Nhật</option>
+                            <select id="form-sched-day" required class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-800 dark:text-slate-100 text-xs rounded-xl p-2.5 focus:outline-none">
+                                <option value="Thứ Hai">Thứ Hai</option><option value="Thứ Ba">Thứ Ba</option><option value="Thứ Tư">Thứ Tư</option><option value="Thứ Năm">Thứ Năm</option><option value="Thứ Sáu">Thứ Sáu</option><option value="Thứ Bảy">Thứ Bảy</option><option value="Chủ Nhật">Chủ Nhật</option>
                             </select>
                         </div>
                         <div>
                             <label class="block text-[11px] font-semibold text-slate-500 uppercase mb-1">Giờ Học</label>
-                            <input type="text" id="form-sched-time" placeholder="VD: 18:00 - 19:30" required class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-800 dark:text-slate-100 text-xs rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <input type="text" id="form-sched-time" placeholder="VD: 18:00 - 19:30" required class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-800 dark:text-slate-100 text-xs rounded-xl p-2.5 focus:outline-none">
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-3">
                         <div>
                             <label class="block text-[11px] font-semibold text-slate-500 uppercase mb-1">Giảng Viên</label>
-                            <select id="form-sched-teacher" required class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-800 dark:text-slate-100 text-xs rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500"></select>
+                            <select id="form-sched-teacher" required class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-800 dark:text-slate-100 text-xs rounded-xl p-2.5 focus:outline-none"></select>
                         </div>
                         <div>
                             <label class="block text-[11px] font-semibold text-slate-500 uppercase mb-1">Phòng</label>
-                            <input type="text" id="form-sched-room" placeholder="Phòng 302" required class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-800 dark:text-slate-100 text-xs rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <input type="text" id="form-sched-room" placeholder="Phòng 302" required class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-800 dark:text-slate-100 text-xs rounded-xl p-2.5 focus:outline-none">
                         </div>
                     </div>
                     <div>
                         <label class="block text-[11px] font-semibold text-slate-500 uppercase mb-1">Ghi chú</label>
-                        <input type="text" id="form-sched-note" placeholder="Unit 1: Grammar Test" class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-800 dark:text-slate-100 text-xs rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <input type="text" id="form-sched-note" placeholder="Unit 1" class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-800 dark:text-slate-100 text-xs rounded-xl p-2.5 focus:outline-none">
                     </div>
                     <div class="flex space-x-2 pt-2">
                         <button type="button" onclick="closeModal('scheduleModal')" class="flex-1 py-2.5 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-200 text-xs font-semibold rounded-xl">Hủy</button>
-                        <button type="submit" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-xl shadow-md shadow-indigo-600/20">Lưu Lịch</button>
+                        <button type="submit" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-xl">Lưu Lịch</button>
                     </div>
                 </form>
             </div>
         </div>
 
-        <!-- 2. Class Modal -->
         <div id="classModal" class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm hidden items-end md:items-center justify-center z-50 p-0 md:p-4">
             <div class="bg-white dark:bg-slate-800 rounded-t-3xl md:rounded-2xl w-full max-w-md shadow-2xl p-5 space-y-4">
                 <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-700 pb-3">
@@ -332,36 +292,32 @@
                     <input type="hidden" id="form-class-id">
                     <div>
                         <label class="block text-[11px] font-semibold text-slate-500 uppercase mb-1">Tên Lớp</label>
-                        <input type="text" id="form-class-name" placeholder="IELTS Intensive 7.0+" required class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-800 dark:text-slate-100 text-xs rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <input type="text" id="form-class-name" placeholder="IELTS 7.0+" required class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-800 dark:text-slate-100 text-xs rounded-xl p-2.5 focus:outline-none">
                     </div>
                     <div class="grid grid-cols-2 gap-3">
                         <div>
                             <label class="block text-[11px] font-semibold text-slate-500 uppercase mb-1">Trình độ</label>
-                            <select id="form-class-level" class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-800 dark:text-slate-100 text-xs rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                                <option value="IELTS">IELTS</option>
-                                <option value="Elementary">Elementary</option>
-                                <option value="Advanced">Advanced</option>
-                                <option value="Kids">Kids</option>
+                            <select id="form-class-level" class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-800 dark:text-slate-100 text-xs rounded-xl p-2.5 focus:outline-none">
+                                <option value="IELTS">IELTS</option><option value="Elementary">Elementary</option><option value="Advanced">Advanced</option>
                             </select>
                         </div>
                         <div>
                             <label class="block text-[11px] font-semibold text-slate-500 uppercase mb-1">Sĩ số</label>
-                            <input type="number" id="form-class-students" value="15" required class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-800 dark:text-slate-100 text-xs rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <input type="number" id="form-class-students" value="15" required class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-800 dark:text-slate-100 text-xs rounded-xl p-2.5 focus:outline-none">
                         </div>
                     </div>
                     <div>
                         <label class="block text-[11px] font-semibold text-slate-500 uppercase mb-1">Mô tả</label>
-                        <textarea id="form-class-desc" rows="2" placeholder="Luyện thi 4 kỹ năng..." class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-800 dark:text-slate-100 text-xs rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+                        <textarea id="form-class-desc" rows="2" class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-800 dark:text-slate-100 text-xs rounded-xl p-2.5 focus:outline-none"></textarea>
                     </div>
                     <div class="flex space-x-2 pt-2">
                         <button type="button" onclick="closeModal('classModal')" class="flex-1 py-2.5 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-200 text-xs font-semibold rounded-xl">Hủy</button>
-                        <button type="submit" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-xl shadow-md shadow-indigo-600/20">Lưu Lớp</button>
+                        <button type="submit" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-xl">Lưu Lớp</button>
                     </div>
                 </form>
             </div>
         </div>
 
-        <!-- 3. Teacher Modal -->
         <div id="teacherModal" class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm hidden items-end md:items-center justify-center z-50 p-0 md:p-4">
             <div class="bg-white dark:bg-slate-800 rounded-t-3xl md:rounded-2xl w-full max-w-md shadow-2xl p-5 space-y-4">
                 <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-700 pb-3">
@@ -372,305 +328,381 @@
                     <input type="hidden" id="form-teacher-id">
                     <div>
                         <label class="block text-[11px] font-semibold text-slate-500 uppercase mb-1">Họ và Tên</label>
-                        <input type="text" id="form-teacher-name" placeholder="Ms. Sarah Johnson" required class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-800 dark:text-slate-100 text-xs rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <input type="text" id="form-teacher-name" placeholder="Ms. Sarah" required class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-800 dark:text-slate-100 text-xs rounded-xl p-2.5 focus:outline-none">
                     </div>
                     <div class="grid grid-cols-2 gap-3">
                         <div>
                             <label class="block text-[11px] font-semibold text-slate-500 uppercase mb-1">Email</label>
-                            <input type="email" id="form-teacher-email" placeholder="sarah@edu.vn" required class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-800 dark:text-slate-100 text-xs rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <input type="email" id="form-teacher-email" required class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-800 dark:text-slate-100 text-xs rounded-xl p-2.5 focus:outline-none">
                         </div>
                         <div>
-                            <label class="block text-[11px] font-semibold text-slate-500 uppercase mb-1">Số điện thoại</label>
-                            <input type="text" id="form-teacher-phone" placeholder="0901234567" required class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-800 dark:text-slate-100 text-xs rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <label class="block text-[11px] font-semibold text-slate-500 uppercase mb-1">SĐT</label>
+                            <input type="text" id="form-teacher-phone" required class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-800 dark:text-slate-100 text-xs rounded-xl p-2.5 focus:outline-none">
                         </div>
                     </div>
                     <div>
-                        <label class="block text-[11px] font-semibold text-slate-500 uppercase mb-1">Chuyên môn / Chứng chỉ</label>
-                        <input type="text" id="form-teacher-specialty" placeholder="IELTS 8.5 - TESOL" required class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-800 dark:text-slate-100 text-xs rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <label class="block text-[11px] font-semibold text-slate-500 uppercase mb-1">Chuyên môn</label>
+                        <input type="text" id="form-teacher-specialty" required class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-800 dark:text-slate-100 text-xs rounded-xl p-2.5 focus:outline-none">
                     </div>
                     <div class="flex space-x-2 pt-2">
                         <button type="button" onclick="closeModal('teacherModal')" class="flex-1 py-2.5 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-200 text-xs font-semibold rounded-xl">Hủy</button>
-                        <button type="submit" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-xl shadow-md shadow-indigo-600/20">Lưu GV</button>
+                        <button type="submit" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-xl">Lưu GV</button>
                     </div>
                 </form>
             </div>
         </div>
 
-        <!-- 4. Quick Action Selector Sheet -->
         <div id="quickActionModal" class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm hidden items-end justify-center z-50 p-4">
             <div class="bg-white dark:bg-slate-800 rounded-3xl w-full max-w-md shadow-2xl p-5 space-y-3">
                 <div class="w-12 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full mx-auto"></div>
                 <h3 class="font-bold text-slate-800 dark:text-slate-100 text-sm text-center">Thêm Nhanh Dữ Liệu</h3>
                 <div class="space-y-2 pt-2">
-                    <button onclick="closeModal('quickActionModal'); openScheduleModal();" class="w-full py-3 bg-indigo-600 text-white text-xs font-semibold rounded-2xl shadow-md shadow-indigo-600/20 flex items-center justify-center space-x-2">
+                    <button onclick="closeModal('quickActionModal'); openScheduleModal();" class="w-full py-3 bg-indigo-600 text-white text-xs font-semibold rounded-2xl flex items-center justify-center space-x-2">
                         <i data-lucide="calendar-plus" class="w-4 h-4"></i><span>Thêm Lịch Học Mới</span>
                     </button>
-                    <button onclick="closeModal('quickActionModal'); openClassModal();" class="w-full py-3 bg-violet-600 text-white text-xs font-semibold rounded-2xl shadow-md shadow-violet-600/20 flex items-center justify-center space-x-2">
-                        <i data-lucide="book-plus" class="w-4 h-4"></i><span>Tạo Lớp / Khóa Học</span>
+                    <button onclick="closeModal('quickActionModal'); openClassModal();" class="w-full py-3 bg-violet-600 text-white text-xs font-semibold rounded-2xl flex items-center justify-center space-x-2">
+                        <i data-lucide="book-plus" class="w-4 h-4"></i><span>Tạo Lớp Học</span>
                     </button>
-                    <button onclick="closeModal('quickActionModal'); openTeacherModal();" class="w-full py-3 bg-slate-800 dark:bg-slate-700 text-white text-xs font-semibold rounded-2xl flex items-center justify-center space-x-2">
+                    <button onclick="closeModal('quickActionModal'); openTeacherModal();" class="w-full py-3 bg-slate-800 text-white text-xs font-semibold rounded-2xl flex items-center justify-center space-x-2">
                         <i data-lucide="user-plus" class="w-4 h-4"></i><span>Thêm Giảng Viên</span>
                     </button>
-                    <button onclick="closeModal('quickActionModal')" class="w-full py-2.5 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-semibold rounded-2xl">Đóng</button>
                 </div>
             </div>
         </div>
 
     </div>
 
-    <!-- Application Script -->
+    <!-- Application JavaScript Logic -->
     <script>
-        // Default Mock State
-        let appData = {
+        const defaultData = {
             classes: [
-                { id: 'c1', name: 'IELTS Mastery 7.5', level: 'IELTS', students: 14, desc: 'Luyện thi cấp tốc 4 kỹ năng học thuật.' },
-                { id: 'c2', name: 'Elementary Communication', level: 'Elementary', students: 18, desc: 'Phát âm chuẩn IPA & phản xạ giao tiếp.' },
-                { id: 'c3', name: 'Advanced Business English', level: 'Advanced', students: 12, desc: 'Tiếng Anh thương mại chuyên nghiệp.' }
+                { id: 'c1', name: 'IELTS Intensive 7.0+', level: 'IELTS', studentsCount: 15, desc: 'Luyện thi chuyên sâu 4 kỹ năng' },
+                { id: 'c2', name: 'Elementary Communication', level: 'Elementary', studentsCount: 12, desc: 'Tiếng Anh giao tiếp cơ bản' },
+                { id: 'c3', name: 'Advanced Business English', level: 'Advanced', studentsCount: 10, desc: 'Tiếng Anh thương mại cao cấp' }
             ],
             teachers: [
-                { id: 't1', name: 'Ms. Sarah Johnson', email: 'sarah.j@edu.vn', phone: '0901234567', specialty: 'IELTS 8.5 - TESOL' },
-                { id: 't2', name: 'Mr. David Smith', email: 'david.s@edu.vn', phone: '0908765432', specialty: 'Business Expert' },
-                { id: 't3', name: 'Cô Nguyễn Thu Hà', email: 'ha.nt@edu.vn', phone: '0912345678', specialty: 'Phonetics Specialist' }
+                { id: 't1', name: 'Ms. Sarah Johnson', email: 'sarah@edu.vn', phone: '0901234567', specialty: 'IELTS 8.5 - TESOL' },
+                { id: 't2', name: 'Mr. David Beckham', email: 'david@edu.vn', phone: '0907654321', specialty: 'Business English - CELTA' },
+                { id: 't3', name: 'Cô Nguyễn Thu Hà', email: 'ha.nguyen@edu.vn', phone: '0918888999', specialty: 'Elementary & Kids' }
             ],
             schedules: [
-                { id: 's1', classId: 'c1', day: 'Thứ Hai', time: '18:00 - 19:30', teacherId: 't1', room: 'Phòng 302', note: 'Unit 1: Academic Reading' },
-                { id: 's2', classId: 'c2', day: 'Thứ Ba', time: '19:45 - 21:15', teacherId: 't3', room: 'Phòng 101', note: 'Basic Pronunciation' },
-                { id: 's3', classId: 'c3', day: 'Thứ Tư', time: '18:00 - 19:30', teacherId: 't2', room: 'Zoom Online 02', note: 'Corporate Emails' },
-                { id: 's4', classId: 'c1', day: 'Thứ Năm', time: '18:00 - 19:30', teacherId: 't1', room: 'Phòng 302', note: 'Writing Task 1' }
+                { id: 's1', classId: 'c1', day: 'Thứ Hai', time: '18:00 - 19:30', teacherId: 't1', room: 'Phòng 301', note: 'Unit 1: Speaking Test' },
+                { id: 's2', classId: 'c2', day: 'Thứ Ba', time: '19:45 - 21:15', teacherId: 't3', room: 'Phòng 204', note: 'Basic Pronunciation' },
+                { id: 's3', classId: 'c3', day: 'Thứ Tư', time: '18:00 - 19:30', teacherId: 't2', room: 'Phòng VIP 1', note: 'Negotiation Skills' }
             ],
-            attendance: {
+            students: {
                 'c1': [
-                    { id: 'st1', name: 'Lê Hoàng Long', present: true, score: 8.5 },
-                    { id: 'st2', name: 'Trần Minh Anh', present: true, score: 9.0 },
-                    { id: 'st3', name: 'Phạm Quỳnh Nga', present: false, score: 7.0 }
+                    { id: 'st1', name: 'Trần Văn Nam', present: true },
+                    { id: 'st2', name: 'Lê Hoàng Long', present: true },
+                    { id: 'st3', name: 'Phạm Minh Thư', present: false }
                 ],
-                'c2': [
-                    { id: 'st4', name: 'Nguyễn Văn Nam', present: true, score: 7.5 },
-                    { id: 'st5', name: 'Hoàng Thị Mai', present: true, score: 8.0 }
-                ],
-                'c3': [
-                    { id: 'st6', name: 'Đỗ Mạnh Cường', present: true, score: 9.5 }
-                ]
+                'c2': [{ id: 'st5', name: 'Nguyễn Văn An', present: true }],
+                'c3': [{ id: 'st7', name: 'Vũ Đức Mạnh', present: false }]
             }
         };
 
-        let currentActiveTab = 'dashboard';
-        let currentSelectedClassId = 'c1';
-        let currentScheduleFilterDay = 'all';
+        let appData = JSON.parse(localStorage.getItem('eduEnglishData')) || defaultData;
+        let activeClassId = appData.classes.length > 0 ? appData.classes[0].id : null;
+        let currentDayFilter = 'all';
 
-        // Local Storage Initialization
-        function initApp() {
-            const saved = localStorage.getItem('eduEnglishMobileData');
-            if (saved) {
-                try { appData = JSON.parse(saved); } catch (e) { console.error(e); }
-            } else {
-                saveAppData();
-            }
-            updateClock();
-            setInterval(updateClock, 10000);
-            switchTab('dashboard');
-            lucide.createIcons();
+        function saveData() {
+            localStorage.setItem('eduEnglishData', JSON.stringify(appData));
         }
 
-        function saveAppData() {
-            localStorage.setItem('eduEnglishMobileData', JSON.stringify(appData));
-        }
-
-        function resetDefaultData() {
-            if (confirm('Khôi phục dữ liệu mẫu ban đầu?')) {
-                localStorage.removeItem('eduEnglishMobileData');
-                location.reload();
-            }
-        }
-
-        function updateClock() {
-            const now = new Date();
-            const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            document.getElementById('current-time-status').innerText = timeStr;
-        }
-
-        // Dark Mode Toggle
         function toggleDarkMode() {
-            const html = document.documentElement;
-            html.classList.toggle('dark');
-            const isDark = html.classList.contains('dark');
+            document.documentElement.classList.toggle('dark');
+            const isDark = document.documentElement.classList.contains('dark');
             const icon = document.getElementById('theme-icon');
             icon.setAttribute('data-lucide', isDark ? 'sun' : 'moon');
             lucide.createIcons();
         }
 
-        // Tab Navigation
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-semibold px-4 py-3 rounded-2xl shadow-xl flex items-center justify-between transform translate-y-2 opacity-0 transition-all duration-300 pointer-events-auto';
+            toast.innerHTML = `<span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => { toast.classList.remove('translate-y-2', 'opacity-0'); }, 10);
+            setTimeout(() => {
+                toast.classList.add('translate-y-2', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
         function switchTab(tabId) {
-            currentActiveTab = tabId;
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.getElementById(`tab-${tabId}`).classList.remove('hidden');
 
-            document.querySelectorAll('.nav-tab').forEach(el => {
-                el.classList.remove('text-indigo-600', 'dark:text-indigo-400');
-                el.classList.add('text-slate-400');
+            document.querySelectorAll('.nav-tab').forEach(btn => {
+                btn.classList.remove('text-indigo-600', 'dark:text-indigo-400');
+                btn.classList.add('text-slate-400');
+                if(btn.getAttribute('data-tab') === tabId) {
+                    btn.classList.remove('text-slate-400');
+                    btn.classList.add('text-indigo-600', 'dark:text-indigo-400');
+                }
             });
 
-            const activeTabBtn = document.querySelector(`[data-tab="${tabId}"]`);
-            if (activeTabBtn) {
-                activeTabBtn.classList.remove('text-slate-400');
-                activeTabBtn.classList.add('text-indigo-600', 'dark:text-indigo-400');
-            }
-
             const titles = {
-                'dashboard': 'Tổng Quan',
-                'schedule': 'Lịch Học Tuần',
-                'classes': 'Lớp & Điểm Danh',
-                'teachers': 'Giảng Viên',
-                'profile': 'Tài Khoản'
+                dashboard: 'Tổng Quan',
+                schedule: 'Lịch Học Tuần',
+                classes: 'Lớp Học & Sĩ Số',
+                teachers: 'Đội Ngũ Giảng Viên',
+                profile: 'Cá Nhân & Cài Đặt'
             };
-            document.getElementById('header-title').innerText = titles[tabId] || 'EduEnglish';
-
-            // Render relevant tab content
-            if (tabId === 'dashboard') renderDashboard();
-            if (tabId === 'schedule') renderScheduleCards();
-            if (tabId === 'classes') renderClassesAndAttendance();
-            if (tabId === 'teachers') renderTeachersList();
+            document.getElementById('header-title').innerText = titles[tabId];
+            renderAll();
         }
 
-        function openQuickAction() {
-            const modal = document.getElementById('quickActionModal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
+        function openModal(id) { document.getElementById(id).classList.remove('hidden'); document.getElementById(id).classList.add('flex'); }
+        function closeModal(id) { document.getElementById(id).classList.add('hidden'); document.getElementById(id).classList.remove('flex'); }
+        function openQuickAction() { openModal('quickActionModal'); }
 
-        function openModal(id) {
-            const modal = document.getElementById(id);
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            if (id === 'scheduleModal') populateScheduleFormDropdowns();
-        }
-
-        function closeModal(id) {
-            const modal = document.getElementById(id);
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
-
-        function showToast(msg, type = 'success') {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            toast.className = `px-4 py-3 rounded-2xl shadow-xl text-white text-xs font-medium flex items-center space-x-2 transition-all transform translate-y-2 opacity-0 pointer-events-auto ${type === 'success' ? 'bg-emerald-600' : 'bg-rose-600'}`;
-            toast.innerHTML = `<i data-lucide="${type === 'success' ? 'check-circle-2' : 'alert-circle'}" class="w-4 h-4"></i><span>${msg}</span>`;
-            container.appendChild(toast);
+        function renderAll() {
+            renderDashboard();
+            renderSchedules();
+            renderClasses();
+            renderTeachers();
             lucide.createIcons();
-
-            setTimeout(() => toast.classList.remove('translate-y-2', 'opacity-0'), 10);
-            setTimeout(() => {
-                toast.classList.add('opacity-0', 'translate-y-2');
-                setTimeout(() => toast.remove(), 300);
-            }, 2500);
         }
 
-        // ================= RENDER DASHBOARD =================
         function renderDashboard() {
             document.getElementById('stat-classes').innerText = appData.classes.length;
             document.getElementById('stat-teachers').innerText = appData.teachers.length;
 
             const list = document.getElementById('dashboard-schedule-list');
             list.innerHTML = '';
-
-            if (appData.schedules.length === 0) {
-                list.innerHTML = `<p class="text-xs text-slate-400 text-center py-4">Chưa có lịch học nào.</p>`;
+            
+            if(appData.schedules.length === 0) {
+                list.innerHTML = `<div class="p-4 text-center text-xs text-slate-400 bg-white dark:bg-slate-800 rounded-2xl">Không có lịch học nào.</div>`;
                 return;
             }
 
-            appData.schedules.slice(0, 3).forEach(s => {
-                const cls = appData.classes.find(c => c.id === s.classId) || { name: 'N/A', level: 'N/A' };
-                const tch = appData.teachers.find(t => t.id === s.teacherId) || { name: 'N/A' };
-
+            appData.schedules.slice(0, 3).forEach(sched => {
+                const cls = appData.classes.find(c => c.id === sched.classId) || { name: 'Lớp không tồn tại' };
+                const tcr = appData.teachers.find(t => t.id === sched.teacherId) || { name: 'Chưa phân công' };
+                
                 const card = document.createElement('div');
                 card.className = 'bg-white dark:bg-slate-800 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-700/60 shadow-sm flex items-center justify-between';
                 card.innerHTML = `
                     <div class="flex items-center space-x-3">
-                        <div class="bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 p-2.5 rounded-xl font-bold text-[10px] uppercase text-center min-w-[55px]">
-                            <span>${s.day}</span>
+                        <div class="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex flex-col items-center justify-center font-bold text-xs">
+                            <span>${sched.day.replace('Thứ ', 'T')}</span>
                         </div>
                         <div>
                             <h4 class="font-bold text-slate-800 dark:text-slate-100 text-xs">${cls.name}</h4>
-                            <p class="text-[11px] text-slate-400 mt-0.5"><i data-lucide="clock" class="w-3 h-3 inline mr-1"></i>${s.time} • ${s.room}</p>
+                            <p class="text-[11px] text-slate-400 mt-0.5"><i data-lucide="clock" class="w-3 h-3 inline"></i> ${sched.time} • <i data-lucide="map-pin" class="w-3 h-3 inline"></i> ${sched.room}</p>
                         </div>
                     </div>
-                    <span class="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 px-2 py-1 rounded-lg">${tch.name.split(' ').pop()}</span>
+                    <span class="text-[10px] font-semibold px-2.5 py-1 bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 rounded-lg">${tcr.name}</span>
                 `;
                 list.appendChild(card);
             });
-            lucide.createIcons();
         }
 
-        // ================= SCHEDULE TAB =================
         function filterScheduleDay(day, btn) {
-            currentScheduleFilterDay = day;
+            currentDayFilter = day;
             document.querySelectorAll('.sched-filter-btn').forEach(b => {
-                b.classList.remove('bg-indigo-600', 'text-white');
-                b.classList.add('bg-slate-100', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300');
+                b.className = 'sched-filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex-shrink-0 transition-all';
             });
-            btn.classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300');
-            btn.classList.add('bg-indigo-600', 'text-white');
-            renderScheduleCards();
+            btn.className = 'sched-filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-indigo-600 text-white flex-shrink-0 transition-all';
+            renderSchedules();
         }
 
-        function renderScheduleCards() {
+        function renderSchedules() {
             const container = document.getElementById('schedule-cards-list');
             container.innerHTML = '';
 
-            const filtered = currentScheduleFilterDay === 'all' ? appData.schedules : appData.schedules.filter(s => s.day === currentScheduleFilterDay);
+            let filtered = appData.schedules;
+            if(currentDayFilter !== 'all') {
+                filtered = appData.schedules.filter(s => s.day === currentDayFilter);
+            }
 
-            if (filtered.length === 0) {
-                container.innerHTML = `<p class="text-xs text-slate-400 text-center py-6">Không có lịch học trong ngày này.</p>`;
+            if(filtered.length === 0) {
+                container.innerHTML = `<div class="p-6 text-center text-xs text-slate-400 bg-white dark:bg-slate-800 rounded-2xl">Không có lịch học cho ngày này.</div>`;
                 return;
             }
 
-            filtered.forEach(s => {
-                const cls = appData.classes.find(c => c.id === s.classId) || { name: 'N/A', level: 'N/A' };
-                const tch = appData.teachers.find(t => t.id === s.teacherId) || { name: 'N/A' };
+            filtered.forEach(sched => {
+                const cls = appData.classes.find(c => c.id === sched.classId) || { name: 'Lớp không tồn tại' };
+                const tcr = appData.teachers.find(t => t.id === sched.teacherId) || { name: 'Chưa phân công' };
 
                 const card = document.createElement('div');
                 card.className = 'bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-100 dark:border-slate-700/60 shadow-sm space-y-2';
                 card.innerHTML = `
                     <div class="flex items-center justify-between">
-                        <span class="px-2.5 py-0.5 text-[10px] font-bold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 rounded-full">${s.day} • ${s.time}</span>
-                        <button onclick="deleteSchedule('${s.id}')" class="text-slate-400 hover:text-rose-500"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                        <span class="px-2.5 py-1 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 text-[10px] font-bold rounded-lg">${sched.day}</span>
+                        <div class="flex items-center space-x-1">
+                            <button onclick="editSchedule('${sched.id}')" class="p-1.5 text-slate-400 hover:text-indigo-600"><i data-lucide="edit-2" class="w-3.5 h-3.5"></i></button>
+                            <button onclick="deleteSchedule('${sched.id}')" class="p-1.5 text-slate-400 hover:text-rose-600"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
+                        </div>
                     </div>
                     <div>
                         <h4 class="font-bold text-slate-800 dark:text-slate-100 text-sm">${cls.name}</h4>
-                        <p class="text-xs text-slate-400 mt-0.5"><i data-lucide="user" class="w-3 h-3 inline mr-1"></i> ${tch.name} | <i data-lucide="map-pin" class="w-3 h-3 inline mr-1"></i> ${s.room}</p>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 flex items-center"><i data-lucide="clock" class="w-3.5 h-3.5 mr-1 text-indigo-500"></i> ${sched.time} &nbsp;|&nbsp; <i data-lucide="map-pin" class="w-3.5 h-3.5 mx-1 text-indigo-500"></i> ${sched.room}</p>
                     </div>
-                    ${s.note ? `<div class="text-[11px] bg-slate-50 dark:bg-slate-700/50 p-2 rounded-xl text-slate-500 dark:text-slate-300">📝 ${s.note}</div>` : ''}
+                    <div class="pt-2 border-t border-slate-100 dark:border-slate-700/60 flex items-center justify-between text-xs">
+                        <span class="text-slate-500 dark:text-slate-400">GV: <strong class="text-slate-700 dark:text-slate-200">${tcr.name}</strong></span>
+                        <span class="text-slate-400 italic">${sched.note || ''}</span>
+                    </div>
                 `;
                 container.appendChild(card);
             });
             lucide.createIcons();
         }
 
-        function populateScheduleFormDropdowns() {
-            const clsSel = document.getElementById('form-sched-class');
-            clsSel.innerHTML = '';
-            appData.classes.forEach(c => {
-                clsSel.innerHTML += `<option value="${c.id}">${c.name} (${c.level})</option>`;
+        function renderClasses() {
+            const chips = document.getElementById('class-chips-container');
+            chips.innerHTML = '';
+
+            if(appData.classes.length === 0) {
+                chips.innerHTML = '<span class="text-xs text-slate-400">Chưa có lớp học nào.</span>';
+                document.getElementById('current-class-title').innerText = 'Chưa có lớp';
+                document.getElementById('current-class-desc').innerText = '';
+                document.getElementById('student-list-container').innerHTML = '';
+                return;
+            }
+
+            if(!activeClassId || !appData.classes.some(c => c.id === activeClassId)) {
+                activeClassId = appData.classes[0].id;
+            }
+
+            appData.classes.forEach(cls => {
+                const isActive = cls.id === activeClassId;
+                const btn = document.createElement('button');
+                btn.onclick = () => { activeClassId = cls.id; renderClasses(); };
+                btn.className = `px-3.5 py-2 rounded-xl text-xs font-semibold flex-shrink-0 transition-all ${isActive ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}`;
+                btn.innerText = cls.name;
+                chips.appendChild(btn);
             });
 
-            const tchSel = document.getElementById('form-sched-teacher');
-            tchSel.innerHTML = '';
-            appData.teachers.forEach(t => {
-                tchSel.innerHTML += `<option value="${t.id}">${t.name}</option>`;
+            const currentCls = appData.classes.find(c => c.id === activeClassId);
+            if(currentCls) {
+                document.getElementById('current-class-title').innerText = currentCls.name;
+                document.getElementById('current-class-desc').innerText = `${currentCls.desc} • Sĩ số: ${currentCls.studentsCount}`;
+            }
+
+            const studentContainer = document.getElementById('student-list-container');
+            studentContainer.innerHTML = '';
+            const students = appData.students[activeClassId] || [];
+
+            if(students.length === 0) {
+                studentContainer.innerHTML = `<div class="p-4 text-center text-xs text-slate-400">Chưa có học viên trong lớp này.</div>`;
+                return;
+            }
+
+            students.forEach(st => {
+                const row = document.createElement('div');
+                row.className = 'flex items-center justify-between p-2.5 bg-slate-50 dark:bg-slate-700/40 rounded-xl';
+                row.innerHTML = `
+                    <div class="flex items-center space-x-2.5">
+                        <div class="w-7 h-7 rounded-lg bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 font-bold text-xs flex items-center justify-center">${st.name.charAt(0)}</div>
+                        <span class="text-xs font-semibold text-slate-700 dark:text-slate-200">${st.name}</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="toggleAttendance('${st.id}')" class="px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all ${st.present ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400' : 'bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400'}">
+                            ${st.present ? 'Có mặt' : 'Vắng mặt'}
+                        </button>
+                        <button onclick="deleteStudent('${st.id}')" class="text-slate-400 hover:text-rose-600"><i data-lucide="x" class="w-3.5 h-3.5"></i></button>
+                    </div>
+                `;
+                studentContainer.appendChild(row);
             });
+            lucide.createIcons();
         }
 
-        function openScheduleModal() {
-            document.getElementById('scheduleForm').reset();
-            populateScheduleFormDropdowns();
+        function toggleAttendance(studentId) {
+            const students = appData.students[activeClassId];
+            const st = students.find(s => s.id === studentId);
+            if(st) {
+                st.present = !st.present;
+                saveData();
+                renderClasses();
+            }
+        }
+
+        function addStudentPrompt() {
+            const name = prompt('Nhập họ tên học viên mới:');
+            if(name && name.trim() !== '') {
+                if(!appData.students[activeClassId]) appData.students[activeClassId] = [];
+                appData.students[activeClassId].push({ id: 'st_' + Date.now(), name: name.trim(), present: true });
+                saveData();
+                renderClasses();
+                showToast('Đã thêm học viên mới!');
+            }
+        }
+
+        function deleteStudent(studentId) {
+            if(confirm('Bạn có chắc muốn xóa học viên này?')) {
+                appData.students[activeClassId] = appData.students[activeClassId].filter(s => s.id !== studentId);
+                saveData();
+                renderClasses();
+                showToast('Đã xóa học viên.');
+            }
+        }
+
+        function renderTeachers() {
+            const list = document.getElementById('teachers-list');
+            list.innerHTML = '';
+
+            if(appData.teachers.length === 0) {
+                list.innerHTML = `<div class="p-6 text-center text-xs text-slate-400 bg-white dark:bg-slate-800 rounded-2xl">Chưa có giảng viên nào.</div>`;
+                return;
+            }
+
+            appData.teachers.forEach(tcr => {
+                const card = document.createElement('div');
+                card.className = 'bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-100 dark:border-slate-700/60 shadow-sm flex items-center justify-between';
+                card.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <div class="w-11 h-11 rounded-2xl bg-violet-50 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 font-bold flex items-center justify-center text-sm shadow-sm">
+                            ${tcr.name.replace('Ms. ', '').replace('Mr. ', '').charAt(0)}
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 dark:text-slate-100 text-xs">${tcr.name}</h4>
+                            <p class="text-[11px] text-indigo-600 dark:text-indigo-400 font-medium mt-0.5">${tcr.specialty}</p>
+                            <p class="text-[10px] text-slate-400 mt-0.5"><i data-lucide="mail" class="w-3 h-3 inline"></i> ${tcr.email} &bull; <i data-lucide="phone" class="w-3 h-3 inline"></i> ${tcr.phone}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-1">
+                        <button onclick="editTeacher('${tcr.id}')" class="p-1.5 text-slate-400 hover:text-indigo-600"><i data-lucide="edit-2" class="w-3.5 h-3.5"></i></button>
+                        <button onclick="deleteTeacher('${tcr.id}')" class="p-1.5 text-slate-400 hover:text-rose-600"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
+                    </div>
+                `;
+                list.appendChild(card);
+            });
+            lucide.createIcons();
+        }
+
+        function openScheduleModal(schedId = null) {
+            document.getElementById('form-sched-class').innerHTML = appData.classes.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+            document.getElementById('form-sched-teacher').innerHTML = appData.teachers.map(t => `<option value="${t.id}">${t.name}</option>`).join('');
+
+            if(schedId) {
+                const s = appData.schedules.find(item => item.id === schedId);
+                if(s) {
+                    document.getElementById('sched-modal-title').innerText = 'Sửa Lịch Học';
+                    document.getElementById('sched-id').value = s.id;
+                    document.getElementById('form-sched-class').value = s.classId;
+                    document.getElementById('form-sched-day').value = s.day;
+                    document.getElementById('form-sched-time').value = s.time;
+                    document.getElementById('form-sched-teacher').value = s.teacherId;
+                    document.getElementById('form-sched-room').value = s.room;
+                    document.getElementById('form-sched-note').value = s.note || '';
+                }
+            } else {
+                document.getElementById('sched-modal-title').innerText = 'Thêm Lịch Học';
+                document.getElementById('scheduleForm').reset();
+                document.getElementById('sched-id').value = '';
+            }
             openModal('scheduleModal');
         }
 
         function saveSchedule(e) {
             e.preventDefault();
-            const data = {
-                id: 's_' + Date.now(),
+            const id = document.getElementById('sched-id').value;
+            const dataObj = {
+                id: id || 's_' + Date.now(),
                 classId: document.getElementById('form-sched-class').value,
                 day: document.getElementById('form-sched-day').value,
                 time: document.getElementById('form-sched-time').value,
@@ -678,213 +710,140 @@
                 room: document.getElementById('form-sched-room').value,
                 note: document.getElementById('form-sched-note').value
             };
-            appData.schedules.push(data);
-            saveAppData();
+            if(id) {
+                const index = appData.schedules.findIndex(s => s.id === id);
+                if(index !== -1) appData.schedules[index] = dataObj;
+                showToast('Đã cập nhật lịch học!');
+            } else {
+                appData.schedules.push(dataObj);
+                showToast('Đã thêm lịch học mới!');
+            }
+            saveData();
             closeModal('scheduleModal');
-            renderScheduleCards();
-            showToast('Đã thêm lịch học thành công!');
+            renderAll();
         }
 
+        function editSchedule(id) { openScheduleModal(id); }
         function deleteSchedule(id) {
-            if (confirm('Xóa lịch học này?')) {
+            if(confirm('Bạn có chắc muốn xóa lịch học này?')) {
                 appData.schedules = appData.schedules.filter(s => s.id !== id);
-                saveAppData();
-                renderScheduleCards();
-                showToast('Đã xóa lịch học.', 'error');
+                saveData();
+                renderAll();
+                showToast('Đã xóa lịch học.');
             }
         }
 
-        // ================= CLASSES & ATTENDANCE TAB =================
-        function renderClassesAndAttendance() {
-            const chipsContainer = document.getElementById('class-chips-container');
-            chipsContainer.innerHTML = '';
-
-            if (appData.classes.length === 0) {
-                chipsContainer.innerHTML = `<p class="text-xs text-slate-400">Chưa có lớp học.</p>`;
-                return;
-            }
-
-            if (!appData.classes.some(c => c.id === currentSelectedClassId)) {
-                currentSelectedClassId = appData.classes[0].id;
-            }
-
-            appData.classes.forEach(c => {
-                const isActive = c.id === currentSelectedClassId;
-                const btn = document.createElement('button');
-                btn.className = `px-3.5 py-2 rounded-xl text-xs font-semibold flex-shrink-0 transition-all ${isActive ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}`;
-                btn.innerHTML = `${c.name} <span class="ml-1 opacity-75">(${c.students})</span>`;
-                btn.onclick = () => {
-                    currentSelectedClassId = c.id;
-                    renderClassesAndAttendance();
-                };
-                chipsContainer.appendChild(btn);
-            });
-
-            // Render current selected class details & students
-            const cls = appData.classes.find(c => c.id === currentSelectedClassId);
-            if (cls) {
-                document.getElementById('current-class-title').innerText = cls.name;
-                document.getElementById('current-class-desc').innerText = `${cls.desc} • Trình độ: ${cls.level}`;
-            }
-
-            const studentList = document.getElementById('student-list-container');
-            studentList.innerHTML = '';
-
-            const students = appData.attendance[currentSelectedClassId] || [];
-            if (students.length === 0) {
-                studentList.innerHTML = `<p class="text-xs text-slate-400 text-center py-4">Chưa có học viên nào trong lớp.</p>`;
-                return;
-            }
-
-            students.forEach((st, idx) => {
-                const row = document.createElement('div');
-                row.className = 'flex items-center justify-between p-2.5 bg-slate-50 dark:bg-slate-700/40 rounded-xl';
-                row.innerHTML = `
-                    <div class="flex items-center space-x-2.5">
-                        <span class="w-5 text-center text-xs font-bold text-slate-400">${idx + 1}</span>
-                        <div>
-                            <h5 class="font-semibold text-slate-800 dark:text-slate-100 text-xs">${st.name}</h5>
-                            <span class="text-[10px] ${st.present ? 'text-emerald-600' : 'text-slate-400'}">${st.present ? '● Có mặt' : '○ Vắng mặt'}</span>
-                        </div>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <input type="number" step="0.5" min="0" max="10" value="${st.score}" onchange="updateScore('${currentSelectedClassId}', '${st.id}', this.value)" class="w-14 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-xs font-bold text-center rounded-lg p-1">
-                        <button onclick="toggleAttendanceStatus('${currentSelectedClassId}', '${st.id}')" class="w-7 h-7 rounded-lg ${st.present ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-950/60 dark:text-emerald-400' : 'bg-slate-200 dark:bg-slate-700 text-slate-500'} flex items-center justify-center font-bold text-xs">✓</button>
-                    </div>
-                `;
-                studentList.appendChild(row);
-            });
-            lucide.createIcons();
-        }
-
-        function toggleAttendanceStatus(classId, studentId) {
-            const list = appData.attendance[classId];
-            if (list) {
-                const st = list.find(s => s.id === studentId);
-                if (st) {
-                    st.present = !st.present;
-                    saveAppData();
-                    renderClassesAndAttendance();
+        function openClassModal(classId = null) {
+            if(classId) {
+                const c = appData.classes.find(item => item.id === classId);
+                if(c) {
+                    document.getElementById('class-modal-title').innerText = 'Sửa Lớp Học';
+                    document.getElementById('form-class-id').value = c.id;
+                    document.getElementById('form-class-name').value = c.name;
+                    document.getElementById('form-class-level').value = c.level;
+                    document.getElementById('form-class-students').value = c.studentsCount;
+                    document.getElementById('form-class-desc').value = c.desc || '';
                 }
+            } else {
+                document.getElementById('class-modal-title').innerText = 'Thêm Lớp Học';
+                document.getElementById('classForm').reset();
+                document.getElementById('form-class-id').value = '';
             }
-        }
-
-        function updateScore(classId, studentId, val) {
-            const list = appData.attendance[classId];
-            if (list) {
-                const st = list.find(s => s.id === studentId);
-                if (st) {
-                    st.score = parseFloat(val) || 0;
-                    saveAppData();
-                    showToast('Đã lưu điểm bài tập!');
-                }
-            }
-        }
-
-        function addStudentPrompt() {
-            const name = prompt('Nhập tên học viên mới:');
-            if (name && name.trim()) {
-                if (!appData.attendance[currentSelectedClassId]) appData.attendance[currentSelectedClassId] = [];
-                appData.attendance[currentSelectedClassId].push({
-                    id: 'st_' + Date.now(),
-                    name: name.trim(),
-                    present: true,
-                    score: 8.0
-                });
-                const cls = appData.classes.find(c => c.id === currentSelectedClassId);
-                if (cls) cls.students = appData.attendance[currentSelectedClassId].length;
-                saveAppData();
-                renderClassesAndAttendance();
-                showToast('Đã thêm học viên!');
-            }
-        }
-
-        function openClassModal() {
-            document.getElementById('classForm').reset();
             openModal('classModal');
         }
 
+        function editCurrentClass() { if(activeClassId) openClassModal(activeClassId); }
+
         function saveClass(e) {
             e.preventDefault();
-            const data = {
-                id: 'c_' + Date.now(),
-                name: document.getElementById('form-class-name').value,
-                level: document.getElementById('form-class-level').value,
-                students: parseInt(document.getElementById('form-class-students').value) || 10,
-                desc: document.getElementById('form-class-desc').value
-            };
-            appData.classes.push(data);
-            appData.attendance[data.id] = [
-                { id: 'st_' + Date.now() + '1', name: 'Học viên mẫu', present: true, score: 8.0 }
-            ];
-            saveAppData();
-            closeModal('classModal');
-            renderClassesAndAttendance();
-            showToast('Đã tạo lớp học mới!');
-        }
+            const id = document.getElementById('form-class-id').value;
+            const name = document.getElementById('form-class-name').value;
+            const level = document.getElementById('form-class-level').value;
+            const studentsCount = document.getElementById('form-class-students').value;
+            const desc = document.getElementById('form-class-desc').value;
 
-        // ================= TEACHERS TAB =================
-        function renderTeachersList() {
-            const container = document.getElementById('teachers-list');
-            container.innerHTML = '';
-
-            if (appData.teachers.length === 0) {
-                container.innerHTML = `<p class="text-xs text-slate-400 text-center py-6">Chưa có giảng viên.</p>`;
-                return;
+            if(id) {
+                const c = appData.classes.find(item => item.id === id);
+                if(c) { c.name = name; c.level = level; c.studentsCount = studentsCount; c.desc = desc; }
+                showToast('Đã cập nhật lớp!');
+            } else {
+                const newId = 'c_' + Date.now();
+                appData.classes.push({ id: newId, name, level, studentsCount, desc });
+                appData.students[newId] = [];
+                activeClassId = newId;
+                showToast('Đã tạo lớp học mới!');
             }
-
-            appData.teachers.forEach(t => {
-                const card = document.createElement('div');
-                card.className = 'bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-100 dark:border-slate-700/60 shadow-sm flex items-center justify-between';
-                card.innerHTML = `
-                    <div class="flex items-center space-x-3">
-                        <div class="w-11 h-11 bg-violet-100 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 font-bold rounded-xl flex items-center justify-center text-sm">
-                            ${t.name.charAt(0)}
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-slate-800 dark:text-slate-100 text-xs">${t.name}</h4>
-                            <span class="text-[10px] bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 font-semibold px-2 py-0.5 rounded-full inline-block mt-0.5">${t.specialty}</span>
-                            <p class="text-[11px] text-slate-400 mt-1">${t.email} • ${t.phone}</p>
-                        </div>
-                    </div>
-                    <button onclick="deleteTeacher('${t.id}')" class="text-slate-400 hover:text-rose-500"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
-                `;
-                container.appendChild(card);
-            });
-            lucide.createIcons();
+            saveData();
+            closeModal('classModal');
+            renderAll();
         }
 
-        function openTeacherModal() {
-            document.getElementById('teacherForm').reset();
+        function openTeacherModal(teacherId = null) {
+            if(teacherId) {
+                const t = appData.teachers.find(item => item.id === teacherId);
+                if(t) {
+                    document.getElementById('teacher-modal-title').innerText = 'Sửa Giảng Viên';
+                    document.getElementById('form-teacher-id').value = t.id;
+                    document.getElementById('form-teacher-name').value = t.name;
+                    document.getElementById('form-teacher-email').value = t.email;
+                    document.getElementById('form-teacher-phone').value = t.phone;
+                    document.getElementById('form-teacher-specialty').value = t.specialty;
+                }
+            } else {
+                document.getElementById('teacher-modal-title').innerText = 'Thêm Giảng Viên';
+                document.getElementById('teacherForm').reset();
+                document.getElementById('form-teacher-id').value = '';
+            }
             openModal('teacherModal');
         }
 
         function saveTeacher(e) {
             e.preventDefault();
-            const data = {
-                id: 't_' + Date.now(),
+            const id = document.getElementById('form-teacher-id').value;
+            const dataObj = {
+                id: id || 't_' + Date.now(),
                 name: document.getElementById('form-teacher-name').value,
                 email: document.getElementById('form-teacher-email').value,
                 phone: document.getElementById('form-teacher-phone').value,
                 specialty: document.getElementById('form-teacher-specialty').value
             };
-            appData.teachers.push(data);
-            saveAppData();
+            if(id) {
+                const index = appData.teachers.findIndex(t => t.id === id);
+                if(index !== -1) appData.teachers[index] = dataObj;
+                showToast('Đã cập nhật giảng viên!');
+            } else {
+                appData.teachers.push(dataObj);
+                showToast('Đã thêm giảng viên mới!');
+            }
+            saveData();
             closeModal('teacherModal');
-            renderTeachersList();
-            showToast('Đã thêm giảng viên thành công!');
+            renderAll();
         }
 
+        function editTeacher(id) { openTeacherModal(id); }
         function deleteTeacher(id) {
-            if (confirm('Xóa giảng viên này?')) {
+            if(confirm('Bạn có chắc muốn xóa giảng viên này?')) {
                 appData.teachers = appData.teachers.filter(t => t.id !== id);
-                saveAppData();
-                renderTeachersList();
-                showToast('Đã xóa giảng viên.', 'error');
+                saveData();
+                renderAll();
+                showToast('Đã xóa giảng viên.');
             }
         }
 
-        window.onload = initApp;
+        function resetDefaultData() {
+            if(confirm('Khôi phục dữ liệu mẫu sẽ ghi đè toàn bộ thay đổi. Tiếp tục?')) {
+                localStorage.removeItem('eduEnglishData');
+                appData = JSON.parse(JSON.stringify(defaultData));
+                saveData();
+                activeClassId = appData.classes[0].id;
+                renderAll();
+                showToast('Đã khôi phục dữ liệu mẫu!');
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderAll();
+        });
     </script>
 </body>
 </html>
